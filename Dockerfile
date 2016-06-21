@@ -6,16 +6,12 @@ ENV APT_DEPS \
               php5-curl \
               php5-json \
               php5-mcrypt \
-              php5-mysql
+              php5-mysql \
 
-RUN apt-get update && apt-get install -y $APT_DEPS
+RUN apt-get update && apt-get install -y $APT_DEPS \
                    && docker-php-ext-install -j$(nproc) mysqli
 
 RUN a2enmod rewrite
-
-
-
- 
 
 ADD . /var/www/html
 
