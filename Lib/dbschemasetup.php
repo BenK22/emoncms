@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 
@@ -19,7 +19,7 @@ function db_schema_setup($mysqli, $schema, $apply)
 {
     $operations = array();
     while ($table = key($schema))
-    { 
+    {
         // if table exists:
         $result = $mysqli->query("SHOW TABLES LIKE '".$table."'");
         if (($result != null ) && ($result->num_rows==1))
@@ -29,7 +29,7 @@ function db_schema_setup($mysqli, $schema, $apply)
             // Check table fields from schema
             //-----------------------------------------------------
             while ($field = key($schema[$table]))
-            { 
+            {
                 $type = $schema[$table][$field]['type'];
                 if (isset($schema[$table][$field]['Null'])) $null = $schema[$table][$field]['Null']; else $null = "YES";
                 if (isset($schema[$table][$field]['Key'])) $key = $schema[$table][$field]['Key']; else $key = null;
@@ -61,7 +61,7 @@ function db_schema_setup($mysqli, $schema, $apply)
                   if ($query) $query = "ALTER TABLE $table MODIFY `$field` $type".$query;
                   if ($query) $operations[] = $query;
                   if ($query && $apply) $mysqli->query($query);
-                } 
+                }
 
                 next($schema[$table]);
             }

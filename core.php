@@ -44,6 +44,16 @@ function db_check($mysqli,$database)
     if ($row['0']>0) return true; else return false;
 }
 
+function get_server_protocol()
+{
+    $protocol = $_SERVER['SERVER_PROTOCOL'];
+	  if ( ! in_array( $protocol, array( 'HTTP/1.1', 'HTTP/2', 'HTTP/2.0' ) ) ) {
+		$protocol = 'HTTP/1.0';
+	}
+	return $protocol;
+}
+    
+
 function controller($controller_name)
 {
     $output = array('content'=>"#UNDEFINED#");

@@ -42,6 +42,16 @@
     }
 
     $mqtt = false;
+    
+    # Check PHP MySQL modules are loded
+    if ( ! extension_loaded( 'mysql' ) && ! extension_loaded( 'mysqli' ) && ! extension_loaded( 'mysqlnd' )) {
+       echo "php extension not loaded";
+       $protocol = get_server_protocol();
+       header( sprintf( '%s 500 Internal Server Error', $protocol ), true, 500 );
+       header( 'Content-Type: text/html; charset=utf-8' );
+       echo "Your PHP installation appears to be missing the MySQL extension which is required by Emoncms.";
+       die( __( 'Your PHP installation appears to be missing the MySQL extension which is required by Emoncms.' ) );
+    }
 
     $mysqli = @new mysqli($server,$username,$password,$database,$port);
     if ( $mysqli->connect_error ) {
