@@ -1,4 +1,4 @@
-# TODO consider alpine 
+# TODO consider alpine
 FROM php:5.6-apache
 
 ENV APT_DEPS \
@@ -9,11 +9,7 @@ ENV APT_DEPS \
               php5-mysql
 
 RUN apt-get update && apt-get install -y $APT_DEPS
-
-RUN sh -c 'echo "extension=dio.so" > /etc/php5/apache2/conf.d/20-dio.ini'
-RUN sh -c 'echo "extension=dio.so" > /etc/php5/cli/conf.d/20-dio.ini'
-RUN sh -c 'echo "extension=redis.so" > /etc/php5/apache2/conf.d/20-redis.ini'
-RUN sh -c 'echo "extension=redis.so" > /etc/php5/cli/conf.d/20-redis.ini'
+                   && docker-php-ext-install -j$(nproc) mysqli
 
 RUN a2enmod rewrite
 
@@ -21,9 +17,9 @@ RUN a2enmod rewrite
 
  
 
-ADD . /var/www/html/emoncms
+ADD . /var/www/html
 
-WORKDIR /var/www/html/emoncms
+WORKDIR /var/www/html
 RUN cp docker.settings.php settings.php
 
 # TODO
