@@ -1,5 +1,5 @@
-# Requires the following variables to be added to a .env file
-# MYSQL_HOST=db2
+# Requires the following variables to be added to a .docker-env file
+# MYSQL_HOST=db
 # MYSQL_DATABASE=emoncms
 # MYSQL_USER=emoncms
 # MYSQL_PASSWORD=YOUR_SECURE_PASSWORD
@@ -24,7 +24,7 @@ services:
     # Link to MYSQL DB (see below)
       - db
     env_file:
-      - '.env'
+      - '.docker-env'
 
   db:
     image: mysql:5.5

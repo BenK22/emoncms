@@ -23,4 +23,3 @@ Modules/*/
 Theme/*
 Theme/*/
 !Theme/basic/
-.env
